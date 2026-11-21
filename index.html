@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Controle de entrega de EPI e de extintores para o técnico do SESMT." />
+    <meta name="theme-color" content="#1f5f8b" />
+    <title>SESMT Web</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <header class="barra">
+      <button type="button" id="botao-voltar" class="botao-barra" aria-label="Voltar" hidden>&#8592;</button>
+      <h1 id="titulo-tela">SESMT Web</h1>
+      <a href="#/" id="botao-inicio" class="botao-barra" aria-label="Menu inicial" hidden>Início</a>
+    </header>
+
+    <main id="conteudo" class="conteudo" tabindex="-1">
+      <p class="texto-suave">Carregando…</p>
+    </main>
+
+    <div id="avisos-rapidos" aria-live="polite"></div>
+
+    <noscript>
+      <p class="conteudo">Este aplicativo precisa do JavaScript ativado no navegador.</p>
+    </noscript>
+
+    <!-- Scripts comuns (sem módulos, para funcionar também aberto direto do arquivo) -->
+    <script src="js/util.js"></script>
+    <script src="js/regras.js"></script>
+    <script src="js/banco.js"></script>
+    <script src="js/exemplos.js"></script>
+    <script src="js/comprovacao.js"></script>
+    <script src="js/telas-epi.js"></script>
+    <script src="js/telas-extintores.js"></script>
+    <script src="js/telas-avisos.js"></script>
+    <script src="js/importacao.js"></script>
+    <script src="js/telas-config.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

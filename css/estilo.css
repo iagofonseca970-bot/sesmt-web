@@ -1,0 +1,1019 @@
+/* SESMT Web — estilos (CSS3: variáveis, Flexbox, Grid, media queries e estilos de impressão).
+   Pensado primeiro para o celular (a tela do técnico na pedreira) e ajustado para telas maiores. */
+
+:root {
+  --fundo: #f2f4f7;
+  --superficie: #ffffff;
+  --superficie-2: #f8fafc;
+  --texto: #1b2430;
+  --texto-suave: #556274;
+  --borda: #d5dce5;
+  --primaria: #1f5f8b;
+  --primaria-escura: #174a6c;
+  --primaria-clara: #e5eff7;
+  --texto-na-primaria: #ffffff;
+  --perigo: #b42318;
+  --perigo-claro: #fdeceb;
+  --laranja: #b54708;
+  --laranja-claro: #fff0e2;
+  --alerta: #8a6100;
+  --alerta-claro: #fff5d6;
+  --ok: #1e7b34;
+  --ok-claro: #e5f4e9;
+  --neutro: #475467;
+  --neutro-claro: #eef1f5;
+  --foco: #2e90fa;
+  --raio: 10px;
+  --sombra: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
+  --fonte: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --fundo: #10151c;
+    --superficie: #19212b;
+    --superficie-2: #1f2934;
+    --texto: #e8edf3;
+    --texto-suave: #a7b3c2;
+    --borda: #33404f;
+    --primaria: #5aa5d8;
+    --primaria-escura: #7cb9e3;
+    --primaria-clara: #1c3447;
+    --texto-na-primaria: #0c1218;
+    --perigo: #f97066;
+    --perigo-claro: #3d1d1b;
+    --laranja: #fd9a5b;
+    --laranja-claro: #3b2414;
+    --alerta: #f5c451;
+    --alerta-claro: #3a3016;
+    --ok: #6ccf87;
+    --ok-claro: #18321f;
+    --neutro: #b5c0cd;
+    --neutro-claro: #26313d;
+    --sombra: none;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --fundo: #10151c;
+  --superficie: #19212b;
+  --superficie-2: #1f2934;
+  --texto: #e8edf3;
+  --texto-suave: #a7b3c2;
+  --borda: #33404f;
+  --primaria: #5aa5d8;
+  --primaria-escura: #7cb9e3;
+  --primaria-clara: #1c3447;
+  --texto-na-primaria: #0c1218;
+  --perigo: #f97066;
+  --perigo-claro: #3d1d1b;
+  --laranja: #fd9a5b;
+  --laranja-claro: #3b2414;
+  --alerta: #f5c451;
+  --alerta-claro: #3a3016;
+  --ok: #6ccf87;
+  --ok-claro: #18321f;
+  --neutro: #b5c0cd;
+  --neutro-claro: #26313d;
+  --sombra: none;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  color: var(--primaria);
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+h2 {
+  font-size: 1.15rem;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+/* ---------- Barra do topo ---------- */
+
+.barra {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 8px 12px;
+  background: var(--primaria);
+  color: var(--texto-na-primaria);
+  box-shadow: var(--sombra);
+}
+
+.barra h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barra .botao-barra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.barra .botao-barra:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.barra .botao-barra[hidden] {
+  display: none;
+}
+
+/* ---------- Conteúdo ---------- */
+
+.conteudo {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+/* Relatórios e impressão da ficha (A4 deitada) aproveitam a tela do computador. */
+.conteudo.largo {
+  max-width: 1320px;
+}
+
+.cartao {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.cartao > :last-child {
+  margin-bottom: 0;
+}
+
+.secao-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.secao-titulo h2 {
+  margin: 0;
+}
+
+.texto-suave {
+  color: var(--texto-suave);
+}
+
+.pequeno {
+  font-size: 0.875rem;
+}
+
+/* Texto só para leitores de tela */
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.vazio {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--texto-suave);
+  border: 1px dashed var(--borda);
+  border-radius: var(--raio);
+  background: var(--superficie-2);
+}
+
+/* ---------- Menu inicial ---------- */
+
+.grade-menu {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .grade-menu {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.botao-menu {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 18px 16px;
+  text-align: left;
+  font: inherit;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.botao-menu:hover {
+  border-color: var(--primaria);
+}
+
+.botao-menu .icone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primaria-clara);
+  color: var(--primaria);
+  font-size: 1.5rem;
+}
+
+.botao-menu strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.botao-menu span.desc {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.contador {
+  display: inline-block;
+  min-width: 24px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--perigo);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* ---------- Formulários ---------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.campo > label,
+.rotulo {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.obrigatorio {
+  color: var(--perigo);
+  font-weight: 800;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='date'],
+input[type='month'],
+input[type='search'],
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie);
+  color: var(--texto);
+  font: inherit;
+}
+
+textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+input[readonly] {
+  background: var(--superficie-2);
+  color: var(--texto-suave);
+}
+
+.dica {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+
+.contagem {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  text-align: right;
+}
+
+.linha {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.linha > * {
+  flex: 1;
+}
+
+.linha > .botao {
+  flex: none;
+}
+
+.grade-filtros {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 12px;
+}
+
+@media (min-width: 640px) {
+  .grade-filtros {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grade-filtros.tres {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.quantidade {
+  display: flex;
+  gap: 8px;
+}
+
+.quantidade input {
+  text-align: center;
+  max-width: 120px;
+}
+
+/* ---------- Botões ---------- */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.botao.primario {
+  background: var(--primaria);
+  color: var(--texto-na-primaria);
+}
+
+.botao.primario:hover {
+  background: var(--primaria-escura);
+}
+
+.botao.secundario {
+  background: var(--superficie);
+  color: var(--primaria);
+  border-color: var(--primaria);
+}
+
+.botao.perigo {
+  background: var(--perigo);
+  color: #fff;
+}
+
+.botao.texto {
+  background: transparent;
+  color: var(--primaria);
+  padding: 6px 8px;
+  min-height: 36px;
+}
+
+.botao.texto.perigo-texto {
+  color: var(--perigo);
+}
+
+.botao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.grupo-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.grupo-botoes.fim {
+  justify-content: flex-end;
+}
+
+.botao.largo {
+  width: 100%;
+}
+
+/* ---------- Listas ---------- */
+
+.lista-itens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: var(--texto);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 12px 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.item:hover {
+  border-color: var(--primaria);
+}
+
+.item-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px 8px;
+}
+
+.item-titulo {
+  font-weight: 600;
+}
+
+.item-topo .item-titulo {
+  flex: 1 1 150px;
+}
+
+.item-detalhe {
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+}
+
+.item-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.item-linha:last-child {
+  border-bottom: 0;
+}
+
+/* No celular, o nome ocupa a linha inteira e os botões ficam embaixo, à direita. */
+@media (max-width: 520px) {
+  .item-linha {
+    flex-wrap: wrap;
+    gap: 4px 8px;
+  }
+  .item-linha input {
+    flex: 1 1 100%;
+  }
+  .item-linha [data-salvar] {
+    margin-left: auto;
+  }
+}
+
+/* ---------- Situação (chips) ---------- */
+
+.chip {
+  display: inline-block;
+  max-width: 100%;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: normal;
+  background: var(--neutro-claro);
+  color: var(--neutro);
+}
+
+.chip.vencido {
+  background: var(--perigo-claro);
+  color: var(--perigo);
+}
+
+.chip.vence-este-mes {
+  background: var(--laranja-claro);
+  color: var(--laranja);
+}
+
+.chip.a-vencer {
+  background: var(--alerta-claro);
+  color: var(--alerta);
+}
+
+.chip.em-dia {
+  background: var(--ok-claro);
+  color: var(--ok);
+}
+
+.resumo-situacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.aviso-caixa {
+  border-left: 4px solid var(--alerta);
+  background: var(--alerta-claro);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.aviso-caixa.perigo {
+  border-color: var(--perigo);
+  background: var(--perigo-claro);
+}
+
+.aviso-caixa.info {
+  border-color: var(--primaria);
+  background: var(--primaria-clara);
+}
+
+/* ---------- Abas ---------- */
+
+.abas {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.aba {
+  flex: none;
+  padding: 10px 14px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--texto-suave);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.aba[aria-selected='true'] {
+  color: var(--primaria);
+  border-bottom-color: var(--primaria);
+}
+
+/* ---------- Tabelas ---------- */
+
+.tabela-rolagem {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--superficie);
+}
+
+table.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+/* Tabela com campos para editar (cadastro de EPI): no celular, rola para o lado em vez de espremer os campos. */
+table.tabela.editavel {
+  min-width: 640px;
+}
+
+.tabela th,
+.tabela td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabela th {
+  background: var(--superficie-2);
+  white-space: nowrap;
+}
+
+.tabela tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tabela td.numero,
+.tabela th.numero {
+  text-align: right;
+}
+
+.tabela tfoot td {
+  font-weight: 700;
+  background: var(--superficie-2);
+  border-top: 2px solid var(--borda);
+}
+
+.ordenar {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  color: var(--texto);
+  cursor: pointer;
+  padding: 0;
+}
+
+.ordenar .seta {
+  color: var(--texto-suave);
+  margin-left: 4px;
+}
+
+/* Na relação de extintores, os títulos das colunas quebram linha para a tabela caber na tela. */
+#tabela-extintores th {
+  white-space: normal;
+}
+
+#tabela-extintores .ordenar {
+  text-align: left;
+}
+
+/* ---------- Fotos e assinatura ---------- */
+
+.foto-previa {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 8px;
+  border: 1px solid var(--borda);
+  background: var(--superficie-2);
+}
+
+.assinatura-previa {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--borda);
+  background: #fff;
+}
+
+.comprovacao-vazia {
+  padding: 16px;
+  border: 1px dashed var(--perigo);
+  border-radius: 8px;
+  color: var(--perigo);
+  background: var(--perigo-claro);
+  font-size: 0.92rem;
+}
+
+.arquivo-escondido {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pad {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pad canvas {
+  width: 100%;
+  height: 240px;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* ---------- Janelas (modal) ---------- */
+
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(12, 17, 24, 0.55);
+}
+
+.modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  background: var(--superficie);
+  color: var(--texto);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modal-texto {
+  white-space: pre-line;
+}
+
+.modal-botoes {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* ---------- Avisos rápidos (toast) ---------- */
+
+#avisos-rapidos {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 60;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(92vw, 420px);
+}
+
+.toast {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #1b2430;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.toast-erro {
+  background: var(--perigo);
+}
+
+.toast.saindo {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* ---------- Ficha de EPI para impressão (A4 deitada, como a folha usada hoje) ---------- */
+
+.folha {
+  width: 287mm;
+  margin: 0 auto 12px;
+  background: #fff;
+  color: #000;
+  border: 1.5pt solid #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+.folha + .folha {
+  page-break-before: always;
+  break-before: page;
+}
+
+.folha-topo {
+  display: grid;
+  grid-template-columns: 1fr 96mm;
+  border-bottom: 1pt solid #000;
+}
+
+.folha-empresa {
+  display: flex;
+  align-items: center;
+  padding: 2mm 3mm;
+  font-size: 12pt;
+  font-weight: 700;
+  border-right: 1pt solid #000;
+}
+
+.folha-campos-topo div {
+  padding: 1mm 2mm;
+  border-bottom: 0.75pt solid #000;
+  font-size: 9.5pt;
+}
+
+.folha-campos-topo div:last-child {
+  border-bottom: 0;
+}
+
+.folha-titulo {
+  padding: 2mm;
+  text-align: center;
+  font-size: 13pt;
+  font-weight: 700;
+  border-bottom: 1pt solid #000;
+}
+
+.folha-dados {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.1fr;
+  border-bottom: 1pt solid #000;
+}
+
+.folha-dados div {
+  padding: 1.5mm 2mm;
+  border-right: 0.75pt solid #000;
+}
+
+.folha-dados div:last-child {
+  border-right: 0;
+}
+
+.folha-declaracao {
+  padding: 2mm 3mm;
+  border-bottom: 1pt solid #000;
+  font-size: 8.5pt;
+  text-align: justify;
+}
+
+.folha-local {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8mm;
+  margin-top: 3mm;
+}
+
+.folha-assinatura-linha {
+  flex: 1;
+  max-width: 110mm;
+  border-top: 0.75pt solid #000;
+  text-align: center;
+  padding-top: 1mm;
+}
+
+table.folha-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.folha-tabela th,
+.folha-tabela td {
+  border: 0.75pt solid #000;
+  padding: 0 1.5mm;
+  height: 7.1mm;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 8.5pt;
+}
+
+.folha-tabela th {
+  height: 10mm;
+  text-align: center;
+  font-size: 8pt;
+  white-space: normal;
+}
+
+.folha-tabela td.centro {
+  text-align: center;
+}
+
+.folha-verso-titulo {
+  padding: 1.5mm 2mm;
+  font-weight: 700;
+  border-bottom: 1pt solid #000;
+}
+
+/* ---------- Impressão ---------- */
+
+@page {
+  size: A4 landscape;
+  margin: 6mm;
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .barra,
+  .nao-imprimir,
+  #avisos-rapidos {
+    display: none !important;
+  }
+
+  .conteudo {
+    max-width: none;
+    padding: 0;
+  }
+
+  .cartao {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .tabela-rolagem {
+    overflow: visible;
+    border: 0;
+  }
+
+  .tabela th,
+  .tabela td {
+    border: 0.75pt solid #000;
+    color: #000;
+    background: #fff;
+  }
+
+  .chip {
+    background: none !important;
+    color: #000 !important;
+    padding: 0;
+  }
+
+  .folha {
+    margin: 0;
+  }
+}

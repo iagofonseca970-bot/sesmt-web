@@ -1,0 +1,15 @@
+{
+  "name": "sesmt-web",
+  "version": "1.0.0",
+  "description": "Protótipo web do SESMT: Controle de Entrega de EPI e Controle de Extintores (dados fictícios).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node testes/teste_regras.mjs && node testes/teste_telas.mjs && node testes/fumaca.mjs",
+    "test:regras": "node testes/teste_regras.mjs",
+    "test:telas": "node testes/teste_telas.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
