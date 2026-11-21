@@ -218,10 +218,18 @@ window.SESMT = window.SESMT || {};
     rotasPendentes.push([padrao, tela]);
   }
 
+  // ---------- Selo das datas de prazo ----------
+  // As datas de prazo aparecem como na etiqueta de inspeção do extintor: algarismos alinhados numa moldura fina.
+  // selo: um texto que já é a data. comSelo: um texto já escapado, em que cada data (dd/mm/aaaa ou mm/aaaa) vira selo.
+  const selo = (data) => (data ? `<span class="selo">${esc(data)}</span>` : '');
+  const comSelo = (htmlSeguro) => String(htmlSeguro).replace(/\b(\d{2}\/\d{2}\/\d{4}|\d{2}\/\d{4})\b/g, '<span class="selo">$1</span>');
+
   Object.assign(S, {
     rotasPendentes,
     registrarTela,
     esc,
+    selo,
+    comSelo,
     normalizar,
     comecaCom,
     contem,

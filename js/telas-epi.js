@@ -59,7 +59,7 @@ window.SESMT = window.SESMT || {};
         </section>
         <div class="secao-titulo">
           <p class="texto-suave" id="contagem" aria-live="polite"></p>
-          <a class="botao primario" href="#/funcionario/novo">+ Novo funcionário</a>
+          <a class="botao primario" href="#/funcionario/novo">${S.icone('mais')}Novo funcionário</a>
         </div>
         <ul class="lista-itens" id="resultado"></ul>`,
     });
@@ -156,11 +156,11 @@ window.SESMT = window.SESMT || {};
             ? '<p class="dica">Depois de salvar a ficha, você registra as entregas de EPI.</p>'
             : `<section class="cartao" aria-labelledby="titulo-entregas">
                 <div class="secao-titulo">
-                  <h2 id="titulo-entregas">Entregas de EPI (${registros.length})</h2>
-                </div>
-                <div class="grupo-botoes" style="margin:0 0 12px">
-                  <a class="botao primario" href="#/funcionario/${id}/entrega/nova">+ Nova entrega</a>
-                  <a class="botao secundario" href="#/funcionario/${id}/imprimir">Imprimir ficha de EPI</a>
+                  <h2 id="titulo-entregas">Entregas de EPI <span class="contagem-titulo">(${registros.length})</span></h2>
+                  <div class="grupo-botoes">
+                    <a class="botao secundario" href="#/funcionario/${id}/imprimir">${S.icone('imprimir')}Imprimir ficha de EPI</a>
+                    <a class="botao primario" href="#/funcionario/${id}/entrega/nova">${S.icone('mais')}Nova entrega</a>
+                  </div>
                 </div>
                 ${
                   registros.length
@@ -169,7 +169,7 @@ window.SESMT = window.SESMT || {};
                           const sit = S.situacaoEpi(r, hoje, antecedencia);
                           return `<li><a class="item" href="#/funcionario/${id}/entrega/${r.id}">
                             <span class="item-topo"><span class="item-titulo">${S.esc(r.descricao)}</span>
-                              <span class="chip ${sit.codigo}">${S.esc(sit.texto)}</span></span>
+                              <span class="chip ${sit.codigo}">${S.comSelo(S.esc(sit.texto))}</span></span>
                             <span class="item-detalhe" style="display:block">Qtd ${S.esc(r.quantidade)} · C.A. ${S.esc(r.ca)} · Entregue em ${S.dataBR(r.dataEntrega)}${
                               r.dataDevolucao ? ` · Devolvido em ${S.dataBR(r.dataDevolucao)}` : ''
                             }</span>

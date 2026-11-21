@@ -45,7 +45,9 @@ Para não perder nada, use **Configurações → Dados → Baixar cópia de segu
 ```
 index.html            página única do app
 css/estilo.css        aparência (tema claro e escuro, tela de celular e computador, impressão em A4)
+fonts/                fonte Inter embutida, para funcionar sem internet (licença em fonts/OFL.txt)
 js/util.js            funções gerais: datas, textos, janelas de confirmação, arquivos
+js/icones.js          ícones de linha (Lucide), sem depender da internet
 js/regras.js          validações e regras de prazo (EPI e extintores)
 js/banco.js           banco de dados no navegador (IndexedDB) e cópia de segurança
 js/comprovacao.js     assinatura na tela (canvas)
@@ -79,6 +81,11 @@ npm test
 - Notificação do navegador: aparece **uma vez por dia, quando o app é aberto**, se o técnico permitir.
 - Validade dos EPIs: vem dos dias de validade do cadastro (no arquivo do sistema, a coluna `diaval`); 0 ou vazio significa "sem prazo", e EPIs devolvidos não entram nos vencidos.
 - Comprovação: a assinatura na tela ou a foto do rosto fica guardada com cada entrega; na ficha impressa, aparece como "Assinatura Eletrônica".
+
+## Créditos
+
+- Fonte [Inter](https://github.com/rsms/inter), licença SIL Open Font License 1.1 (texto em `fonts/OFL.txt`).
+- Ícones [Lucide](https://lucide.dev), licença ISC (aviso no início de `js/icones.js`).
 
 ## Publicar no GitHub Pages (opcional)
 

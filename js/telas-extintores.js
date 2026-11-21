@@ -43,13 +43,13 @@ window.SESMT = window.SESMT || {};
                 .map(([c, n]) => `<option value="${c}" ${filtros.situacao === c ? 'selected' : ''}>${n}</option>`)
                 .join('')}</select></div>
             <div class="campo"><label for="x-texto">Identificação ou local</label>
-              <input type="search" id="x-texto" placeholder="Contém…" value="${S.esc(filtros.texto)}" /></div>
+              <input type="search" id="x-texto" placeholder="Buscar" value="${S.esc(filtros.texto)}" /></div>
           </div>
         </section>
-        <div class="resumo-situacao" id="resumo" aria-live="polite"></div>
+        <div class="situacao-geral" id="resumo" aria-live="polite"></div>
         <div class="secao-titulo">
           <p class="texto-suave" id="contagem-ext"></p>
-          <a class="botao primario" href="#/extintor/novo">+ Novo extintor</a>
+          <a class="botao primario" href="#/extintor/novo">${S.icone('mais')}Novo extintor</a>
         </div>
         <ul class="lista-itens" id="lista-ext"></ul>`,
     });
@@ -66,10 +66,14 @@ window.SESMT = window.SESMT || {};
       achados.forEach((e) => {
         contagem[e.situacao.codigo] = (contagem[e.situacao.codigo] || 0) + 1;
       });
-      raiz.querySelector('#resumo').innerHTML = Object.keys(NOMES_SITUACAO)
-        .filter((c) => contagem[c])
-        .map((c) => `<span class="chip ${c}">${NOMES_SITUACAO[c]}: ${contagem[c]}</span>`)
-        .join('');
+      // A situação de todos numa barra só, dividida pela quantidade de cada situação, com a legenda embaixo.
+      const presentes = Object.keys(NOMES_SITUACAO).filter((c) => contagem[c]);
+      raiz.querySelector('#resumo').innerHTML = presentes.length
+        ? `<div class="barra-situacao" role="img" aria-label="${presentes.map((c) => `${NOMES_SITUACAO[c]}: ${contagem[c]}`).join(', ')}">${presentes
+            .map((c) => `<span class="faixa ${c}" style="flex-grow:${contagem[c]}"></span>`)
+            .join('')}</div>
+           <div class="legenda-situacao">${presentes.map((c) => `<span class="chip ${c}">${NOMES_SITUACAO[c]}: ${contagem[c]}</span>`).join('')}</div>`
+        : '';
       raiz.querySelector('#contagem-ext').textContent =
         extintores.length === 0 ? 'Nenhum extintor cadastrado.' : `${achados.length} de ${S.plural(extintores.length, 'extintor', 'extintores')}`;
       raiz.querySelector('#lista-ext').innerHTML = achados.length
@@ -82,8 +86,8 @@ window.SESMT = window.SESMT || {};
                   listas.filiaisPorId.get(e.filialId)?.nome || 'Sem filial'
                 )}</span>
                 <span class="item-detalhe" style="display:block">${S.esc(textoLocal(e))}</span>
-                <span class="item-detalhe" style="display:block">Recarga ${S.mesAnoBR(e.recarga)} · Próxima recarga ${S.mesAnoBR(S.proximaRecarga(e.recarga))}${
-                  e.testeHidrostatico ? ` · Teste hidrostático ${S.mesAnoBR(e.testeHidrostatico)}` : ''
+                <span class="item-detalhe" style="display:block">Recarga ${S.mesAnoBR(e.recarga)} · Próxima recarga ${S.selo(S.mesAnoBR(S.proximaRecarga(e.recarga)))}${
+                  e.testeHidrostatico ? ` · Teste hidrostático ${S.selo(S.mesAnoBR(e.testeHidrostatico))}` : ''
                 }</span>
               </a></li>`
             )
@@ -148,7 +152,7 @@ window.SESMT = window.SESMT || {};
         ${
           situacao
             ? `<div class="resumo-situacao">${situacao.prazos
-                .map((p) => `<span class="chip ${p.codigo}">${S.esc(p.prazo)} (${S.mesAnoBR(p.mes)}): ${S.esc(p.texto)}</span>`)
+                .map((p) => `<span class="chip ${p.codigo}">${S.esc(p.prazo)} ${S.selo(S.mesAnoBR(p.mes))} · ${S.esc(p.texto)}</span>`)
                 .join('')}</div>`
             : ''
         }

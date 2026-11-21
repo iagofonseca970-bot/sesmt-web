@@ -121,7 +121,7 @@ window.SESMT = window.SESMT || {};
                       <span class="item-titulo">${S.esc(e.identificacao)}</span>
                       <span class="item-detalhe" style="display:block">${S.esc(listas.filiaisPorId.get(e.filialId)?.nome || 'Sem filial')} · ${S.esc(S.textoLocalExtintor(e))}</span>
                       <span class="resumo-situacao" style="margin:6px 0 0">${prazos
-                        .map((p) => `<span class="chip ${p.codigo}">${S.esc(p.prazo)} ${S.mesAnoBR(p.mes)}: ${S.esc(p.texto)}</span>`)
+                        .map((p) => `<span class="chip ${p.codigo}">${S.esc(p.prazo)} ${S.selo(S.mesAnoBR(p.mes))} · ${S.esc(p.texto)}</span>`)
                         .join('')}</span></a></li>`
                   )
                   .join('')}</ul>`
@@ -139,7 +139,7 @@ window.SESMT = window.SESMT || {};
                     <ul class="lista-itens">${itens
                       .map(
                         ({ registro: r, situacao }) => `<li><a class="item" href="#/funcionario/${f.id}/entrega/${r.id}">
-                          <span class="item-topo"><span class="item-titulo">${S.esc(r.descricao)}</span><span class="chip ${situacao.codigo}">${S.esc(situacao.texto)}</span></span>
+                          <span class="item-topo"><span class="item-titulo">${S.esc(r.descricao)}</span><span class="chip ${situacao.codigo}">${S.comSelo(S.esc(situacao.texto))}</span></span>
                           <span class="item-detalhe" style="display:block">Entregue em ${S.dataBR(r.dataEntrega)} · validade de ${S.plural(Number(r.diasValidade), 'dia', 'dias')}</span></a></li>`
                       )
                       .join('')}</ul>`

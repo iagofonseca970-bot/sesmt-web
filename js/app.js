@@ -92,7 +92,7 @@ window.SESMT = window.SESMT || {};
     const raiz = pintar(tk, {
       titulo: 'SESMT Web',
       html: `
-        <p class="texto-suave">Usuário: <strong>${S.esc(usuario)}</strong></p>
+        <p class="meta-usuario">Usuário: <strong>${S.esc(usuario)}</strong></p>
         ${
           semDados
             ? `<div class="aviso-caixa info">
@@ -102,37 +102,32 @@ window.SESMT = window.SESMT || {};
             : ''
         }
         <nav class="grade-menu" aria-label="Menu principal">
-          <a class="botao-menu" href="#/epi">
-            <span class="icone" aria-hidden="true">&#9937;</span>
-            <span><strong>Controle de Entrega de EPI</strong>
-            <span class="desc">Buscar funcionário, ficha, entregas e devoluções</span></span>
-          </a>
-          <a class="botao-menu" href="#/extintores">
-            <span class="icone" aria-hidden="true">&#128293;</span>
-            <span><strong>Controle de Extintores</strong>
-            <span class="desc">Lista, cadastro, fotos e prazos de recarga</span></span>
-          </a>
-          <a class="botao-menu" href="#/avisos">
-            <span class="icone" aria-hidden="true">&#128276;</span>
-            <span><strong>Avisos${totalAvisos ? `<span class="contador" aria-label="${totalAvisos} avisos">${totalAvisos}</span>` : ''}</strong>
-            <span class="desc">${
+          ${[
+            ['#/epi', 'capacete', 'Controle de Entrega de EPI', 'Buscar funcionário, ficha, entregas e devoluções', 'principal'],
+            ['#/extintores', 'extintor', 'Controle de Extintores', 'Lista, cadastro, fotos e prazos de recarga', 'principal'],
+            [
+              '#/avisos',
+              'sino',
+              'Avisos',
               totalAvisos
                 ? `${S.plural(avisos.extintores.length, 'extintor', 'extintores')} e ${S.plural(avisos.epis.length, 'EPI', 'EPIs')} pedem atenção`
-                : 'Nada vencido ou a vencer'
-            }</span></span>
-          </a>
-          <a class="botao-menu" href="#/relatorios">
-            <span class="icone" aria-hidden="true">&#128202;</span>
-            <span><strong>Relatórios</strong>
-            <span class="desc">Extintores, quantidade por unidade e EPIs vencidos</span></span>
-          </a>
-          <a class="botao-menu" href="#/configuracoes">
-            <span class="icone" aria-hidden="true">&#9881;</span>
-            <span><strong>Configurações</strong>
-            <span class="desc">Usuário, listas, cadastro de EPI e cópia de segurança</span></span>
-          </a>
+                : 'Nada vencido ou a vencer',
+              '',
+              totalAvisos ? `<span class="contador" aria-label="${totalAvisos} avisos">${totalAvisos}</span>` : '',
+            ],
+            ['#/relatorios', 'grafico', 'Relatórios', 'Extintores, quantidade por unidade e EPIs vencidos', ''],
+            ['#/configuracoes', 'engrenagem', 'Configurações', 'Usuário, listas, cadastro de EPI e cópia de segurança', ''],
+          ]
+            .map(
+              ([href, icone, titulo, desc, classe, extra = '']) => `<a class="botao-menu ${classe}" href="${href}">
+                <span class="icone">${S.icone(icone, 20)}</span>
+                <span class="texto-menu"><strong>${titulo}</strong><span class="desc">${desc}</span></span>
+                <span class="fim-menu">${extra}${S.icone('seta')}</span>
+              </a>`
+            )
+            .join('')}
         </nav>
-        <p class="dica" style="margin-top:16px">Os dados ficam guardados neste navegador. Faça a cópia de segurança em Configurações.</p>`,
+        <p class="dica nota-dados">Os dados ficam guardados neste navegador. Faça a cópia de segurança em Configurações.</p>`,
     });
     if (!raiz) return;
     const botao = raiz.querySelector('#carregar-exemplos');
